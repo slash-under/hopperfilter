@@ -2,7 +2,7 @@ package ca.awoo.hopperfilter;
 
 import org.bukkit.block.Container;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.block.BlockEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.inventory.InventoryPickupItemEvent;
