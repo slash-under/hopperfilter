@@ -80,6 +80,7 @@ public class HopperListener implements Listener {
             if(customName != null){
                 String itemName = event.getItem().getType().getKey().getKey();
                 if(!filterMatch(customName, itemName)){
+                    HopperFilter.loggerInstance.info("Item with name of " + itemName + " is not matched with the filter " + customName);
                     event.setCancelled(true);
                 }
             }
