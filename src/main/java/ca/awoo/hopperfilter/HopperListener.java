@@ -65,7 +65,7 @@ public class HopperListener implements Listener {
                 }else if(wildcard == '?'){
                     sb.append(".");
                 }
-            }catch(IndexOutOfBoundsException _){}
+            }catch(IndexOutOfBoundsException ex){}
         }
         sb.append("$");
         return sb.toString();
@@ -97,7 +97,7 @@ public class HopperListener implements Listener {
         }
     }
 
-    /*@EventHandler
+    @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
         if(event.getItemInHand().getType().equals(Material.HOPPER) && event.getItemInHand().getItemMeta().hasDisplayName()){
             String customName = event.getItemInHand().getItemMeta().getDisplayName();
@@ -107,5 +107,5 @@ public class HopperListener implements Listener {
                 event.getPlayer().sendMessage("Invalid regex: " + customName);
             }
         }
-    }*/
+    }
 }
