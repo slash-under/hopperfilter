@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
-import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat;
 import net.md_5.bungee.api.ChatColor;
 
 public class HopperListener implements Listener {
