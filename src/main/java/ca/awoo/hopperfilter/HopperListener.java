@@ -105,6 +105,7 @@ public class HopperListener implements Listener {
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
         if(event.getItemInHand().getType().equals(Material.HOPPER) && event.getItemInHand().getItemMeta().hasDisplayName()){
+            String filterString = event.getItemInHand().getItemMeta().getDisplayName();
             // String customName = event.getItemInHand().getItemMeta().getDisplayName();
             // try{
             //     Pattern.compile(customName);
@@ -124,8 +125,8 @@ public class HopperListener implements Listener {
                     patternCache.put(filterString, p);
                 }catch(PatternSyntaxException e){
                     event.getPlayer().sendMessage("Invalid regex: " + filterString);
-                    TextComponent[] errorComponents = parseException(e);
-                    event.getPlayer().spigot().sendMessage(errorComponents);
+                    TextComponent errorComponent = parseException(e);
+                    event.getPlayer().spigot().sendMessage(errorComponent);
                     return;
                 }
             }
