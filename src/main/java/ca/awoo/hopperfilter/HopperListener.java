@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.ChatColor;
 
 public class HopperListener implements Listener {
 
@@ -103,12 +105,38 @@ public class HopperListener implements Listener {
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
         if(event.getItemInHand().getType().equals(Material.HOPPER) && event.getItemInHand().getItemMeta().hasDisplayName()){
-            String customName = event.getItemInHand().getItemMeta().getDisplayName();
-            try{
-                Pattern.compile(customName);
-            }catch(PatternSyntaxException e){
-                event.getPlayer().sendMessage("Invalid regex: " + customName);
+            // String customName = event.getItemInHand().getItemMeta().getDisplayName();
+            // try{
+            //     Pattern.compile(customName);
+            // }catch(PatternSyntaxException e){
+            //     event.getPlayer().sendMessage("Invalid regex: " + customName);
+            // }
+
+            Pattern p;
+            if(patternCache.containsKey(filterString)){
+                p = patternCache.get(filterString);
+                //regex exists, let player know regex is already valid
+                event.getPlayer().sendMessage("Regex exists in cache: " + p.pattern());
+            }else {
+                try {
+                    String regexString = filterStringToRegex(filterString);
+                    p = Pattern.compile(regexString);
+                    patternCache.put(filterString, p);
+                }catch(PatternSyntaxException e){
+                    event.getPlayer().sendMessage("Invalid regex: " + filterString);
+                    TextComponent[] errorComponents = parseException(e);
+                    event.getPlayer().spigot().sendMessage(errorComponents);
+                    return;
+                }
             }
         }
     }
+
+    //parse PatternSyntaxException into array of "net.md_5.bungee.api.chat.TextComponent", exposing "setColor" to set color
+    private TextComponent parseException(PatternSyntaxException e){
+        TextComponent error = new TextComponent(e.getDescription());
+        error.setColor(ChatColor.RED);
+        return error;
+    }
+    
 }
